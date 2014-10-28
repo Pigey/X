@@ -1,2 +1,8 @@
 X
 =
+
+error code:
+
+'ILLEGAL TOKEN'
+
+'SCHEMA REQUIRED'
