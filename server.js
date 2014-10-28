@@ -9,7 +9,9 @@ var server = http.createServer();
 server.listen(config.port);
 
 var sock = shoe(function (stream) {
-    var d = dnode(methods);
+    var d = dnode(methods, {
+    	weak: false
+    });
     d.pipe(stream).pipe(d);
 });
 
