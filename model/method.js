@@ -32,13 +32,13 @@ Object.keys(methods.model).forEach(function(name){
     methods.model[name] = function(modelName, params, schema, token, callback){
         console.log('?', arguments);
 
-        validate(token, function(err, legal){
-            if(err || !legal){
+        validate(token, function(err, tokenId){
+            if(err || !tokenId){
                 callback(err || 'ILLEGAL TOKEN');
                 return;
             }
 
-            var m = model.get(modelName, schema, token);
+            var m = model.get(modelName, schema, tokenId);
 
             if(!m){
                 callback('SCHEMA REQUIRED');

@@ -1,11 +1,11 @@
 var gen = require('../auth/gen'),
     validate = require('../auth/validate');
 
-/*validate('14143', function(err, result){
+validate('84054ce010d1ab12ad08dbf0a29e495b', function(err, result){
     console.log(err, result);
-});*/
+});
 
-gen.all(function(err, result){
+/*gen.all(function(err, result){
     console.log('gen all', err, result);
 
     var secret = result.secret,
@@ -26,4 +26,4 @@ gen.all(function(err, result){
             });
         });
     });
-});
+});*/
