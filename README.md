@@ -1,8 +1,10 @@
 X
 =
 
-error code:
+Universal model layer for browser apps based on dnode & sockjs.
 
-'ILLEGAL TOKEN'
+### error code:
 
-'SCHEMA REQUIRED'
+* 'ILLEGAL TOKEN'
+
+* 'SCHEMA REQUIRED'
