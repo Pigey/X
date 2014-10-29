@@ -15,6 +15,9 @@ var methods = {
         remove: function(model, filters, callback){
             model.remove(filters, callback);
         },
+        update: function(model, params, callback){
+            model.update(params.filters, params.updates, callback);
+        },
         exec: function(model, params, callback){
             var method = params.method,
                 args = (Array.isArray(params.args) ? args : [args]).concat(callback);
@@ -22,7 +25,9 @@ var methods = {
             model[method].apply(model, args);
         }
     },
-    instance: {}
+    instance: {
+        // TODO
+    }
 };
 
 Object.keys(methods.model).forEach(function(name){
@@ -30,7 +35,6 @@ Object.keys(methods.model).forEach(function(name){
     var op = methods.model[name];
 
     methods.model[name] = function(modelName, params, schema, token, callback){
-        console.log('?', arguments);
 
         validate(token, function(err, tokenId){
             if(err || !tokenId){
@@ -51,6 +55,8 @@ Object.keys(methods.model).forEach(function(name){
     };
 });
 
-Object.keys(methods.instance).forEach(function(name){});
+Object.keys(methods.instance).forEach(function(name){
+    // TODO
+});
 
 module.exports = methods;

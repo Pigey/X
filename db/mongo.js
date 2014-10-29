@@ -23,7 +23,7 @@ mongoose.connect(constructUrl(config));
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-    console.log('db connected!');
+    //console.log('db connected!');
 });
 
 module.exports = {
