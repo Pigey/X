@@ -2,7 +2,7 @@ var mongo = require('../db/mongo'),
     types = require('../db/types');
 
 var getModel = function(name, schema, token){
-    name = token + '_' + name;
+    name = name + '_' + token;
 
     if(mongo.db.models[name]){
         return mongo.model(name);
