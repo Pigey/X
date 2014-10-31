@@ -66,55 +66,67 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 	`[ { filters... }, callback(err, list) ]`
 
+	get all matched instances
+
 * get
 
 	`[ { filters... }, callback(err, obj) ]`
+
+	get one matched instance
 
 * create
 
 	`[ { key: val, ... }, callback(err, obj) ]`
 
+	create (& save) one instance
+
 * remove
 
 	`[ { filters... }, callback(err, affectedNum) ]`
+
+	remove all matched instances
 
 * update
 
 	`[ { filters: { filters...}, update: { key: val, ... } }, callback(err, affectedNum) ]`
 
+	update all matched instances by `update`
+
 * exec
 
 	`[ { methd: 'method', args: [ args... ] }, callback(err, result) ]`
+
+	call a method of [Mongoose#Model](http://mongoosejs.com/docs/api.html#model_Model)
 
 ### field types
 
 * `String`
 
-	[Javascript] `global.String`
+	*Javascript* `global.String`
 
 * `Number`
 
-	[Javascript] `global.Number`
+	*Javascript* `global.Number`
 
 * `Boolean`
 
-	[Javascript] `global.Boolean`
+	*Javascript* `global.Boolean`
 
 * `Array`
 
-	[Javascript] `global.Array`
+	*Javascript* `global.Array`
 
 * `Date`
 
-	[Javascript] `global.Date`
+	*Javascript* `global.Date`
 
 * `ObjectId`
 
-	[Mongoose] `Schema.Types.ObjectId`
+	*Mongoose* `Schema.Types.ObjectId`
 
 * `Mixed`
 
-	[Mongoose] `Schema.Types.Mixed`
+	*Mongoose* `Schema.Types.Mixed`
 
 
 ### error types:
