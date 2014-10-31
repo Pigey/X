@@ -17,24 +17,24 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 	* config/db.json (mongoDB info)
 
-	``` javascript
-	{
-		"domain": "127.0.0.1",			// db service address
-		"port": "8082",					// db service port
-		"user": "",						// db service username
-		"password": "",					// db service password
-		"db": "X"						// db name
-	}
-	```
+		``` javascript
+		{
+			"domain": "127.0.0.1",			// db service address
+			"port": "8082",					// db service port
+			"user": "",						// db service username
+			"password": "",					// db service password
+			"db": "X"						// db name
+		}
+		```
 
 	* config/server.json (server config)
 
-	``` javascript
-	{
-		"port": 8083,					// server listen port
-		"path": "/X"					// websocket path
-	}
-	```
+		``` javascript
+		{
+			"port": 8083,					// server listen port
+			"path": "/X"					// websocket path
+		}
+		```
 
 3. install dependencies
 
@@ -90,31 +90,31 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 * `String`
 
-	[Javascript] global.String
+	[Javascript] `global.String`
 
 * `Number`
 
-	[Javascript] global.Number
+	[Javascript] `global.Number`
 
 * `Boolean`
 
-	[Javascript] global.Boolean
+	[Javascript] `global.Boolean`
 
 * `Array`
 
-	[Javascript] global.Array
+	[Javascript] `global.Array`
 
 * `Date`
 
-	[Javascript] global.Date
+	[Javascript] `global.Date`
 
 * `ObjectId`
 
-	[Mongoose] Schema.Types.ObjectId
+	[Mongoose] `Schema.Types.ObjectId`
 
 * `Mixed`
 
-	[Mongoose] Schema.Types.Mixed
+	[Mongoose] `Schema.Types.Mixed`
 
 
 ### error types:
