@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var gen = require('../auth/gen');
+
+var secret = process.argv[2];
+
+gen.access(secret, function(err, res){
+    if(err){
+    	console.error('* error:', err);
+    	process.exit(1);
+    }else{
+    	console.log('* access:', res);
+    	console.log('AccessToken regenned, the previous one will be no longer effective.');
+    	process.exit(0);
+    }
+});

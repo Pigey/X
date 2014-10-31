@@ -7,7 +7,7 @@ RPC realization with [dnode](https://github.com/substack/dnode) & [shoe](https:/
 
 Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoosejs.com/)
 
-## Deploy
+## Usage
 
 1. mongoDB service required
 
@@ -52,6 +52,16 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 4. start server
 
 		node server.js
+
+5. gen token
+
+	* gen token pair (accessToken & secretToken)
+
+			bin/genToken
+
+	* gen new accessToken (secretToken required)
+
+			bin/genAccess <secretToken>
 
 ## Javascript SDK:
 

@@ -1,17 +1,13 @@
-var Promise = require('promise');
+var Promise = require('promise')
+    promise = function(handler){
+    return new Promise(handler);
+},
+    log = console.log.bind(console, '*');
 
 var Model = require('../../model/method');
 
 var col = 'test',
     token = '84054ce010d1ab12ad08dbf0a29e495b';
-
-var promise = function(handler){
-    return new Promise(handler);
-};
-
-var log = function(){
-    console.log.apply(console, ['*'/*, Date.now()*/].concat(Array.prototype.slice.call(arguments)))
-};
 
 promise(function(resolve, reject){
 
@@ -122,8 +118,10 @@ promise(function(resolve, reject){
 
 }).done(function(res){
     log('finished.');
+    process.exit(0);
 }, function(err){
     log('failed,', err);
+    process.exit(1);
 })
 
 

@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var gen = require('../auth/gen');
+
+gen.all(function(err, res){
+    if(err){
+    	console.error('* error:', err);
+    	process.exit(1);
+    }else{
+    	console.log('* access:', res.access);
+    	console.log('* secret:', res.secret);
+    	console.log('Token genned, use your accessToken and keep your secretToken privacy.');
+    	process.exit(0);
+    }
+});
