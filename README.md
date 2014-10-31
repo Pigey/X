@@ -17,35 +17,24 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 	* config/db.json (mongoDB info)
 
-		* domain
-
-			db service address ( 'a.b.com', '127.0.0.1', ... )
-
-		* port
-
-			db service port (8082)
-
-		* user
-
-			db service username
-
-		* password
-
-			db service password
-
-		* db
-
-			db name
+	``` javascript
+	{
+		"domain": "127.0.0.1",			// db service address
+		"port": "8082",					// db service port
+		"user": "",						// db service username
+		"password": "",					// db service password
+		"db": "X"						// db name
+	}
+	```
 
 	* config/server.json (server config)
 
-		* port
-
-			server listen port (8083)
-
-		* path
-
-			websocket path ('/X')
+	``` javascript
+	{
+		"port": 8083,					// server listen port
+		"path": "/X"					// websocket path
+	}
+	```
 
 3. install dependencies
 
@@ -65,7 +54,7 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 			bin/genAccess <secretToken>
 
-## Javascript SDK:
+## client side (browser)
 
 [X-client](https://github.com/nighca/X-client)
 
