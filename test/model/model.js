@@ -1,6 +1,6 @@
 var Promise = require('promise');
 
-var Model = require('../../model/method').model;
+var Model = require('../../model/method');
 
 var col = 'test',
     token = '84054ce010d1ab12ad08dbf0a29e495b';
@@ -22,10 +22,12 @@ promise(function(resolve, reject){
     return promise(function(resolve, reject){
         Model.create(col, {
             name: 'test1',
-            seq: 1
+            seq: {
+                a: 1
+            }
         }, {
             name: 'String',
-            seq: 'Number'
+            seq: 'Mixed'
         }, token, function(err, res){
             log('create', err, res);
 
@@ -67,7 +69,10 @@ promise(function(resolve, reject){
                 name: 'test1'
             },
             updates: {
-                seq: 2
+                seq: {
+                    a: 1,
+                    b: 2
+                }
             }
         }, null, token, function(err, res){
             log('update', err, res);
