@@ -1,7 +1,9 @@
 X
 =
 
-Universal model layer for browser apps written with nodejs.
+Universal model layer for browser apps.
+
+A nodejs project.
 
 RPC realization with [dnode](https://github.com/substack/dnode) & [shoe](https://github.com/substack/shoe)
 
