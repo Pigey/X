@@ -10,13 +10,13 @@ var methods = {
         model.findOne(filters, callback);
     },
     create: function(model, obj, callback){
-        (new model(obj)).save(callback);
+        model.create(obj, callback);
     },
     remove: function(model, filters, callback){
         model.remove(filters, callback);
     },
     update: function(model, params, callback){
-        model.update(params.filters, params.updates, callback);
+        model.update(params.filters, params.updates, { multi: true }, callback);
     },
     exec: function(model, params, callback){
         var method = params.method,
