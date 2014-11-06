@@ -1,23 +1,15 @@
 var mongo = require('../db/mongo'),
     types = require('../db/types');
 
-var getModel = function(name, schema, tokenId){
+var getModel = function(name, tokenId){
     name = name + '_' + tokenId;
 
     if(mongo.db.models[name]){
         return mongo.model(name);
     }else{
-        if(schema){
-            Object.keys(schema).forEach(function(field){
-                schema[field] = types[schema[field]] || types.Mixed;
-            });
+        var schema = mongo.schema({}, { strict: false });
 
-            schema = mongo.schema(schema);
-
-            return mongo.model(name, schema)
-        }else{
-            return null;
-        }
+        return mongo.model(name, schema)
     }
 };
 

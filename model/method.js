@@ -4,25 +4,28 @@ var model = require('./model'),
 // model methods
 var methods = {
     list: function(model, filters, callback){
-        model.find(filters, callback);
+        model.find(filters, function(err, list){
+            if(!err) list = list.map(function(item){ return item._doc; });
+            callback(err, list);
+        });
     },
     get: function(model, filters, callback){
-        model.findOne(filters, callback);
+        model.findOne(filters, function(err, item){
+            if(!err) item = item._doc;
+            callback(err, item);
+        });
     },
     create: function(model, obj, callback){
-        model.create(obj, callback);
+        model.create(obj, function(err, item){
+            if(!err) item = item._doc;
+            callback(err, item);
+        });
     },
     remove: function(model, filters, callback){
         model.remove(filters, callback);
     },
     update: function(model, params, callback){
         model.update(params.filters, params.updates, { multi: true }, callback);
-    },
-    exec: function(model, params, callback){
-        var method = params.method,
-            args = (Array.isArray(params.args) ? args : [args]).concat(callback);
-
-        model[method].apply(model, args);
     }
 };
 
@@ -31,7 +34,7 @@ Object.keys(methods).forEach(function(name){
 
     var op = methods[name];
 
-    methods[name] = function(modelName, params, schema, token, callback){
+    methods[name] = function(modelName, params, token, callback){
 
         validate(token, function(err, tokenId){
             if(err || !tokenId){
@@ -39,12 +42,7 @@ Object.keys(methods).forEach(function(name){
                 return;
             }
 
-            var m = model.get(modelName, schema, tokenId);
-
-            if(!m){
-                callback('SCHEMA REQUIRED');
-                return;
-            }
+            var m = model.get(modelName, tokenId);
 
             op(m, params, callback);
         });

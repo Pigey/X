@@ -21,9 +21,6 @@ promise(function(resolve, reject){
             seq: {
                 a: 1
             }
-        }, {
-            name: 'String',
-            seq: 'Mixed'
         }, token, function(err, res){
             log('create', err, res);
 
@@ -36,7 +33,7 @@ promise(function(resolve, reject){
 
     return promise(function(resolve, reject){
         Model.list(col, {
-        }, null, token, function(err, res){
+        }, token, function(err, res){
             log('list', err, res);
 
             if(err) reject(err);
@@ -49,7 +46,7 @@ promise(function(resolve, reject){
     return promise(function(resolve, reject){
         Model.get(col, {
             name: 'test1'
-        }, null, token, function(err, res){
+        }, token, function(err, res){
             log('get', err, res);
 
             if(err) reject(err);
@@ -70,7 +67,7 @@ promise(function(resolve, reject){
                     b: 2
                 }
             }
-        }, null, token, function(err, res){
+        }, token, function(err, res){
             log('update', err, res);
 
             if(err) reject(err);
@@ -83,7 +80,7 @@ promise(function(resolve, reject){
     return promise(function(resolve, reject){
         Model.get(col, {
             name: 'test1'
-        }, null, token, function(err, res){
+        }, token, function(err, res){
             log('get', err, res);
 
             if(err) reject(err);
@@ -96,7 +93,7 @@ promise(function(resolve, reject){
     return promise(function(resolve, reject){
         Model.remove(col, {
             name: 'test1'
-        }, null, token, function(err, res){
+        }, token, function(err, res){
             log('remove', err, res);
 
             if(err) reject(err);
@@ -108,7 +105,7 @@ promise(function(resolve, reject){
 
     return promise(function(resolve, reject){
         Model.list(col, {
-        }, null, token, function(err, res){
+        }, token, function(err, res){
             log('list', err, res);
 
             if(err) reject(err);

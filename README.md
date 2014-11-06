@@ -92,43 +92,6 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 	update all matched instances by `update`
 
-* exec
-
-	`[ { methd: 'method', args: [ args... ] }, callback(err, result) ]`
-
-	call a method of [Mongoose#Model](http://mongoosejs.com/docs/api.html#model_Model)
-
-### field types
-
-* `String`
-
-	*Javascript* `global.String`
-
-* `Number`
-
-	*Javascript* `global.Number`
-
-* `Boolean`
-
-	*Javascript* `global.Boolean`
-
-* `Array`
-
-	*Javascript* `global.Array`
-
-* `Date`
-
-	*Javascript* `global.Date`
-
-* `ObjectId`
-
-	*Mongoose* `Schema.Types.ObjectId`
-
-* `Mixed`
-
-	*Mongoose* `Schema.Types.Mixed`
-
-
 ### error types:
 
 * `ILLEGAL TOKEN`
