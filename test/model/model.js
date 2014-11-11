@@ -7,7 +7,7 @@ var Promise = require('promise')
 var Model = require('../../model/method');
 
 var col = 'test',
-    token = '84054ce010d1ab12ad08dbf0a29e495b';
+    token = '57d9620b7406041429ab3fa733fe9cca';
 
 promise(function(resolve, reject){
 
@@ -16,24 +16,31 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        Model.create(col, {
-            name: 'test1',
-            seq: {
-                a: 1
+        Model.create(token, col, [
+            {
+                name: 'test1',
+                num: 1
+            },
+            {
+                name: 'test1',
+                num: 1
+            },
+            {
+                name: 'test2',
+                num: 2
             }
-        }, token, function(err, res){
-            log('create', err, res);
+        ], function(err, res1, res2){
+            log('create', err, res1, res2);
 
             if(err) reject(err);
-            else resolve(res);
+            else resolve(res1, res2);
         });
     })
 
 }).then(function(){
 
     return promise(function(resolve, reject){
-        Model.list(col, {
-        }, token, function(err, res){
+        Model.list(token, col, function(err, res){
             log('list', err, res);
 
             if(err) reject(err);
@@ -44,10 +51,32 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        Model.get(col, {
+        Model.list(token, col, {}, 'name', function(err, res){
+            log('list name', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        Model.distinct(token, col, 'name', function(err, res){
+            log('distinct name, all', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        Model.distinct(token, col, 'num', {
             name: 'test1'
-        }, token, function(err, res){
-            log('get', err, res);
+        }, function(err, res){
+            log('distinct num, test1', err, res);
 
             if(err) reject(err);
             else resolve(res);
@@ -57,31 +86,10 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        Model.update(col, {
-            filters: {
-                name: 'test1'
-            },
-            updates: {
-                seq: {
-                    a: 1,
-                    b: 2
-                }
-            }
-        }, token, function(err, res){
-            log('update', err, res);
-
-            if(err) reject(err);
-            else resolve(res);
-        });
-    })
-
-}).then(function(){
-
-    return promise(function(resolve, reject){
-        Model.get(col, {
+        Model.get(token, col, {
             name: 'test1'
-        }, token, function(err, res){
-            log('get', err, res);
+        }, function(err, res){
+            log('get test1', err, res);
 
             if(err) reject(err);
             else resolve(res);
@@ -91,10 +99,23 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        Model.remove(col, {
+        Model.update(token, col, {
+            num: 'new'
+        }, function(err, res){
+            log('update all', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        Model.get(token, col, {
             name: 'test1'
-        }, token, function(err, res){
-            log('remove', err, res);
+        }, function(err, res){
+            log('get test1', err, res);
 
             if(err) reject(err);
             else resolve(res);
@@ -104,8 +125,45 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        Model.list(col, {
-        }, token, function(err, res){
+        Model.remove(token, col, {
+            name: 'test1'
+        }, function(err, res){
+            log('remove test1', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        Model.list(token, col, {
+        }, function(err, res){
+            log('list', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        Model.remove(token, col, {
+        }, function(err, res){
+            log('remove all', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        Model.list(token, col, {
+        }, function(err, res){
             log('list', err, res);
 
             if(err) reject(err);

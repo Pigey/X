@@ -1,31 +1,114 @@
-var model = require('./model'),
+var Model = require('./model'),
     validate = require('../auth/validate');
+
+var getDoc = function(item){
+    item = item.toObject();
+    delete item.__v;
+    return item;
+};
+
+// transform result (item) brefore callback
+var processItem = function(callback){
+    return function(err){
+        var args = [err];
+        if(!err){
+            for(var i = 1; i < arguments.length; i++){
+                args.push(getDoc(arguments[i]));
+            }
+        }
+
+        callback && callback.apply(this, args);
+    };
+};
+
+// transform result (list) brefore callback
+var processList = function(callback){
+    return function(err, list){
+        if(!err) list = list.map(function(item){ return getDoc(item); });
+        callback && callback(err, list);
+    };
+};
 
 // model methods
 var methods = {
-    list: function(model, filters, callback){
-        model.find(filters, function(err, list){
-            if(!err) list = list.map(function(item){ return item._doc; });
-            callback(err, list);
-        });
+
+    list: function(filters, fields, options, cb){
+        if(typeof filters === 'function'){
+            cb = filters;
+            filters = {};
+            fields = null;
+            options = null;
+        }else if(typeof fields === 'function'){
+            cb = fields;
+            fields = null;
+            options = null;
+        }else if(typeof options === 'function'){
+            cb = options;
+            options = null;
+        }
+
+        this.find(filters, fields, options, processList(cb));
     },
-    get: function(model, filters, callback){
-        model.findOne(filters, function(err, item){
-            if(!err) item = item._doc;
-            callback(err, item);
-        });
+
+    get: function(filters, fields, options, cb){
+        if(typeof filters === 'function'){
+            cb = filters;
+            filters = {};
+            fields = null;
+            options = null;
+        }else if(typeof fields === 'function'){
+            cb = fields;
+            fields = null;
+            options = null;
+        }else if(typeof options === 'function'){
+            cb = options;
+            options = null;
+        }
+
+        this.findOne(filters, fields, options, processItem(cb));
     },
-    create: function(model, obj, callback){
-        model.create(obj, function(err, item){
-            if(!err) item = item._doc;
-            callback(err, item);
-        });
+
+    distinct: function(field, filters, cb){
+        if(typeof filters === 'function'){
+            cb = filters;
+            filters = {};
+        }
+
+        this.distinct(field, filters, cb);
     },
-    remove: function(model, filters, callback){
-        model.remove(filters, callback);
+
+    create: function(item, cb){
+        this.create(item, processItem(cb));
     },
-    update: function(model, params, callback){
-        model.update(params.filters, params.updates, { multi: true }, callback);
+
+    remove: function(filters, cb){
+        if(typeof filters === 'function'){
+            cb = filters;
+            filters = {};
+        }
+
+        this.remove(filters, cb);
+    },
+
+    update: function(filters, updates, options, cb){
+        if(typeof filters === 'function'){
+            cb = filters;
+            filters = {};
+            updates = null;
+            options = null;
+        }else if(typeof updates === 'function'){
+            cb = updates;
+            updates = filters;
+            filters = {};
+            options = null;
+        }else if(typeof options === 'function'){
+            cb = options;
+            options = null;
+        }
+
+        options = options || { multi: true };
+
+        this.update(filters, updates, options, cb);
     }
 };
 
@@ -34,17 +117,22 @@ Object.keys(methods).forEach(function(name){
 
     var op = methods[name];
 
-    methods[name] = function(modelName, params, token, callback){
+    methods[name] = function(token, modelName){
+
+        var args = Array.prototype.slice.call(arguments, 2);
+            callback = args[args.length - 1];
+
+        callback = typeof callback === 'function' ? callback : null;
 
         validate(token, function(err, tokenId){
             if(err || !tokenId){
-                callback(err || 'ILLEGAL TOKEN');
+                callback && callback(err || 'ILLEGAL TOKEN');
                 return;
             }
 
-            var m = model.get(modelName, tokenId);
+            var model = Model.get(modelName, tokenId);
 
-            op(m, params, callback);
+            op.apply(model, args);
         });
         
     };

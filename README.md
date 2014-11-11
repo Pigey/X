@@ -62,23 +62,31 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 ### model methods
 
+[see code](https://github.com/nighca/X/blob/master/model/method.js)
+
 * list
 
-	`[ { filters... }, callback(err, list) ]`
+	`[ { filters... }, { fields... }, { options... }, callback(err, list) ]`
 
 	get all matched instances
 
 * get
 
-	`[ { filters... }, callback(err, obj) ]`
+	`[ { filters... }, { fields... }, { options... }, callback(err, item) ]`
 
 	get one matched instance
 
+* distinct
+
+	`[ 'field', { filters... }, callback(err, list) ]`
+
+	distinct operation
+
 * create
 
-	`[ { key: val, ... }, callback(err, obj) ]`
+	`[ { item... } / [ { item... }, .... ], callback(err, item...) ]`
 
-	create (& save) one instance
+	create (& save) one instance / instance array
 
 * remove
 
@@ -88,9 +96,9 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 * update
 
-	`[ { filters: { filters...}, update: { key: val, ... } }, callback(err, affectedNum) ]`
+	`[ { filters... }, { updates... }, { options... }, callback(err, affectedNum) ]`
 
-	update all matched instances by `update`
+	update all matched instances
 
 ### error types:
 
