@@ -7,28 +7,6 @@ var getDoc = function(item){
     return item;
 };
 
-// transform result (item) brefore callback
-var processItem = function(callback){
-    return function(err){
-        var args = [err];
-        if(!err){
-            for(var i = 1; i < arguments.length; i++){
-                args.push(getDoc(arguments[i]));
-            }
-        }
-
-        callback && callback.apply(this, args);
-    };
-};
-
-// transform result (list) brefore callback
-var processList = function(callback){
-    return function(err, list){
-        if(!err) list = list.map(function(item){ return getDoc(item); });
-        callback && callback(err, list);
-    };
-};
-
 // model methods
 var methods = {
 
@@ -47,7 +25,10 @@ var methods = {
             options = null;
         }
 
-        this.find(filters, fields, options, processList(cb));
+        this.find(filters, fields, options, function(err, list){
+            if(!err) list = list.map(function(item){ return getDoc(item); });
+            cb && cb(err, list);
+        });
     },
 
     get: function(filters, fields, options, cb){
@@ -65,7 +46,10 @@ var methods = {
             options = null;
         }
 
-        this.findOne(filters, fields, options, processItem(cb));
+        this.findOne(filters, fields, options, function(err, item){
+            if(!err) item = getDoc(item);
+            cb && cb(err, item);
+        });
     },
 
     distinct: function(field, filters, cb){
@@ -78,7 +62,14 @@ var methods = {
     },
 
     create: function(item, cb){
-        this.create(item, processItem(cb));
+        var model = this;
+
+        this.create(item, function(err){
+            var items = err ? [] : Array.prototype.slice.call(arguments, 1).map(getDoc);
+
+            !err && model.emit.apply(model, ['create'].concat(items));
+            cb && cb.apply(this, [err].concat(items));
+        });
     },
 
     remove: function(filters, cb){
@@ -87,7 +78,11 @@ var methods = {
             filters = {};
         }
 
-        this.remove(filters, cb);
+        var model = this;
+        this.remove(filters, function(err, affected){
+            !err && model.emit('remove', affected);
+            cb && cb.apply(this, arguments);
+        });
     },
 
     update: function(filters, updates, options, cb){
@@ -108,7 +103,15 @@ var methods = {
 
         options = options || { multi: true };
 
-        this.update(filters, updates, options, cb);
+        var model = this;
+        this.update(filters, updates, options, function(err, affected){
+            !err && model.emit('update', affected);
+            cb && cb.apply(this, arguments);
+        });
+    },
+
+    on: function(event, cb){
+        this.on(event, cb);
     }
 };
 

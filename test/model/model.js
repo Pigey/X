@@ -9,6 +9,10 @@ var Model = require('../../model/method');
 var col = 'test',
     token = '57d9620b7406041429ab3fa733fe9cca';
 
+Model.on(token, col, 'change', function(){
+    log.apply(null, ['changed'].concat(Array.prototype.slice.call(arguments)));
+});
+
 promise(function(resolve, reject){
 
     resolve('start');
