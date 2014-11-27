@@ -100,6 +100,42 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 	update all matched instances
 
+* on
+
+	`[ event, callback() ]`
+
+	listen to model events
+
+### model events
+
+* create
+
+	`[ item... ]`
+
+	item(s) created
+
+* remove
+
+	`[ affectedNum ]`
+
+	item(s) removed
+
+* update
+
+	`[ affectedNum ]`
+
+	item(s) updated
+
+* change
+
+	`[ { type: 'type', data: [] } ]`
+
+	combination of `create`, `remove` & `update`
+
+	`type`: one of `create`, `remove` & `update`
+
+	`data`: `[ item... ]` / `[ affectedNum ]` ( depends on type )
+
 ### error types:
 
 * `ILLEGAL TOKEN`
