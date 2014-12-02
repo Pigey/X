@@ -1,7 +1,7 @@
 X
 =
 
-Universal model layer for browser apps.
+Universal model layer for browser apps based on websocket.
 
 A nodejs project.
 
@@ -54,7 +54,7 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 			bin/genAccess <secretToken>
 
-## client side (browser)
+## client side (browser & Node.js)
 
 [X-client](https://github.com/nighca/X-client)
 
