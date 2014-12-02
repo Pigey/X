@@ -2,9 +2,12 @@ var Model = require('./model'),
     validate = require('../auth/validate');
 
 var getDoc = function(item){
-    item = item.toObject();
-    delete item.__v;
-    return item;
+    if(item && item.toObject){
+        item = item.toObject();
+        delete item.__v;
+        return item;
+    }
+    return null;
 };
 
 // model methods
