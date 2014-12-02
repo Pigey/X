@@ -58,6 +58,10 @@ Storage based on [mongoDB](http://www.mongodb.org/) & [mongoose](http://mongoose
 
 [X-client](https://github.com/nighca/X-client)
 
+### demo
+
+* [X-weekly](https://github.com/nighca/X-weekly)
+
 ## API (client)
 
 ### model methods
