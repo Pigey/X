@@ -104,6 +104,8 @@ var methods = {
             options = null;
         }
 
+        delete updates['_id'];
+
         options = options || { multi: true };
 
         var model = this;
