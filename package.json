@@ -1,6 +1,6 @@
 {
   "name": "X",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Universal model layer for browser apps",
   "main": "server.js",
   "scripts": {
