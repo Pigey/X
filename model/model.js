@@ -14,9 +14,7 @@ var postpone = function (action) {
 var createModel = function(name){
     var schema = mongo.schema({}, { strict: false }),
         model = mongo.model(name, schema);
-
     model.emit = postpone(model.emit);
-
     ['create', 'update', 'remove'].forEach(function(op){
         model.on(op, function(){
             model.emit('change', {
@@ -31,7 +29,7 @@ var createModel = function(name){
 
 var getModel = function(name, tokenId){
     name = name + '_' + tokenId;
-
+    console.log(name);
     return mongo.db.models[name] ?
         mongo.model(name) :
         createModel(name);

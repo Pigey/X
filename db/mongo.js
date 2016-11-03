@@ -18,6 +18,7 @@ var constructUrl = function(opt){
     return url;
 };
 
+mongoose.Promise = require('promise');
 mongoose.connect(constructUrl(config));
 
 var db = mongoose.connection;

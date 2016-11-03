@@ -142,7 +142,7 @@ Object.keys(methods).forEach(function(name){
 
             op.apply(model, args);
         });
-        
+
     };
 });
 
